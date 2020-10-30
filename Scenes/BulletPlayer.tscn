@@ -17,4 +17,4 @@ modulate = Color( 0.14902, 1, 0, 1 )
 position = Vector2( 4.76837e-06, 0.176779 )
 scale = Vector2( 0.292893, 0.618825 )
 texture = ExtResource( 1 )
-[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]

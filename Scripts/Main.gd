@@ -1,6 +1,6 @@
 extends Node2D
 
-var Invader = preload("res://Scenes/Invaders.tscn")
+var Invader = preload("res://Scenes/InvaderArea.tscn")
 var Block = preload("res://Scenes/Blocks.tscn")
 var _timer
 var rng = RandomNumberGenerator.new()
@@ -21,29 +21,28 @@ func _process(delta):
 func _invader_shoot():
 	rng.randomize()
 	_timer.stop()
+	
 	var invader_index = rng.randf_range(0, 
 					get_node("InvaderContainer").get_child_count() - 1)
-	if not is_instance_valid(get_node("InvaderContainer").get_children()[invader_index].get_node('CollisionShape2D/RayCast2D').get_collider()):
-		get_node("InvaderContainer").get_children()[invader_index].set_owner($InvaderContainer.get_owner())
-		get_node("InvaderContainer").get_children()[invader_index]._shoot()
-		_timer.start(rng.randf_range(3, 10))
+	
+	var col = get_node("InvaderContainer").get_children()[invader_index].get_node('Area2D/RayCast2D').get_collider()
+	if is_instance_valid(col):
+		if not col.is_in_group("Invaders"):
+			get_node("InvaderContainer").get_children()[invader_index].set_owner($InvaderContainer.get_owner())
+			get_node("InvaderContainer").get_children()[invader_index]._shoot()
+	_timer.start(rng.randf_range(3, 10))
 
 func _add_invaders():
-	var d1 = 400
-	var d2 = 455
-	var number_invaders = 40
-	var number_rows = 2
-	var step_angle = 360 / number_invaders
-	for i in range(number_invaders):
-		var invader = Invader.instance()
-		$InvaderContainer.add_child(invader)
-		invader.position = get_node("Player").position
-		if i < int(number_invaders) / 2:
-			invader.get_node('CollisionShape2D').position = Vector2(d1, 0)
-			invader.rotation_degrees += i*step_angle*2
-		else: 
-			invader.get_node('CollisionShape2D').position = Vector2(d2, 0)
-			invader.rotation_degrees += i*step_angle*2 + 180
+	var number_invaders = 36
+	var number_rows = 1
+
+	for j in range(number_rows):
+		for i in range(number_invaders):
+			var invader = Invader.instance()
+			$InvaderContainer.add_child(invader)
+			invader.get_node('Area2D').position = get_node("Player").position
+			invader.get_node("Area2D/CollisionShape2D").position = Vector2(0, 400)
+			invader.get_node("Area2D").rotation_degrees += i*10
 
 func _add_blokcs():
 	var d1 = 100

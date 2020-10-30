@@ -7,7 +7,7 @@
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 553.878, 315.715 )
+position = Vector2( 250, 250 )
 
 [node name="InvaderContainer" type="Node" parent="."]
 

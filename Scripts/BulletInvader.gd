@@ -7,7 +7,7 @@ func _ready():
 	# $CollisionShape2D.scale = Vector2(0.5,0.5)
 
 func _physics_process(delta):	
-	position += - transform.x * speed * delta
+	position += - transform.y * speed * delta
 
 func _on_BulletInvader_body_entered(body):
 	if body.name == 'Player':
@@ -20,3 +20,4 @@ func _on_BulletInvader_area_entered(area):
 	if area.is_in_group("bullets_player"):
 		area.queue_free()
 		queue_free()
+		

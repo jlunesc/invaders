@@ -9,7 +9,7 @@ func _ready():
 func _physics_process(delta):
 	position += - transform.y * speed * delta
 
-func _on_Bullet_body_entered(body):
-	if body.is_in_group("Invaders"):
-		body.queue_free()
+func _on_Bullet_area_entered(area):
+	if area.get_parent().is_in_group("Invaders"):
+		area.get_parent().queue_free()
 	queue_free()
