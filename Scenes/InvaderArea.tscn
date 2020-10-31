@@ -5,26 +5,30 @@
 [ext_resource path="res://Scenes/BulletInvader.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 35, 35 )
+extents = Vector2( 15, 15 )
 
 [node name="Invader" type="Node2D"]
 script = ExtResource( 2 )
 Bullet = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2( 0.75, 0.75 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Area2D/CollisionShape2D"]
+scale = Vector2( 0.632109, 0.61897 )
 texture = ExtResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="Area2D/CollisionShape2D/Sprite"]
 position = Vector2( 0, -35 )
 
-[node name="RayCast2D" type="RayCast2D" parent="Area2D"]
+[node name="RayCast2D" type="RayCast2D" parent="Area2D/CollisionShape2D/Sprite/Position2D"]
 modulate = Color( 0.0745098, 0.0588235, 0.0588235, 1 )
 self_modulate = Color( 0.117647, 0.0980392, 0.0980392, 1 )
+position = Vector2( 0, -5 )
 rotation = 3.14159
+scale = Vector2( 1.58201, 1.61559 )
 enabled = true
+cast_to = Vector2( 0, 120 )
+collide_with_areas = true

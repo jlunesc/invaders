@@ -13,3 +13,7 @@ func _on_Bullet_area_entered(area):
 	if area.get_parent().is_in_group("Invaders"):
 		area.get_parent().queue_free()
 	queue_free()
+
+func _on_Bullet_body_entered(body):
+	if body.is_in_group("Blocks"):
+		queue_free()
