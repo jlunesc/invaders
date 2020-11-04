@@ -2,6 +2,7 @@ extends Node2D
 
 var Invader = preload("res://Scenes/InvaderArea.tscn")
 var Block = preload("res://Scenes/Blocks.tscn")
+var DestructibleBlock = preload("res://Scenes/DestructibleBlock.tscn")
 var _timer
 var _timer_ditch
 var rng = RandomNumberGenerator.new()
@@ -65,8 +66,8 @@ func _add_blokcs():
 	var d1 = 100
 	var number_blocks = 5
 	for i in range(number_blocks):
-		var block = Block.instance()
+		var block = DestructibleBlock.instance()
 		$BlockContainer.add_child(block)
 		block.position = get_node("Player").position
 		block.rotation_degrees += 20+i*(360 / number_blocks)
-		block.get_node('CollisionShape2D').position = Vector2(d1, 0)
+		block.get_node("Node2D").position = Vector2(d1, 0)
