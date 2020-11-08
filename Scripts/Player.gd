@@ -15,6 +15,10 @@ func _process(delta):
 	move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
 
 func shoot():
+	$Camera2D.shake(0.25, 50, 2)
 	var b = Bullet.instance()
 	owner.add_child(b)
 	b.transform = $Position2D.global_transform
+
+func _get_damage():
+	$Camera2D.shake(0.75, 150, 7.5)

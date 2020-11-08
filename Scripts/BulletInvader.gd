@@ -10,7 +10,7 @@ func _physics_process(delta):
 
 func _on_BulletInvader_body_entered(body):
 	if body.name == 'Player':
-		# get_tree().reload_current_scene()
+		body._get_damage()
 		queue_free()
 	elif body.is_in_group("DestructibleBlock"):
 		body.queue_free()
