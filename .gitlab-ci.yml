@@ -11,7 +11,7 @@ web:
   stage: export
   script:
     - mkdir -v -p build/html5
-    - godot -v --export "HTML5" ./build/web/index.html
+    - godot -v --export "HTML5" ./build/html5/index.html
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
