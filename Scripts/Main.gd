@@ -26,8 +26,13 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	_add_invaders() 	# placement of the invaders
-	_add_blokcs()
+	var d = 300
+	var number_invaders = 7
+	var number_rows = 5
+	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	
+	var d1 = 100
+	_add_blokcs(d1, number_invaders)
 
 func _process(delta):
 	if _timer_shoot.get_time_left() < 1:
@@ -45,13 +50,9 @@ func _invader_shoot():
 			inv.set_owner($InvaderContainer.get_owner())
 			inv._shoot()
 			break
-	# _timer_shoot.start(rng.randf_range(3, 8))
-	
 	time_now =  (OS.get_unix_time()-_reference_time) / 60.0
-
 	var b = pow(10, -0.5)
 	var factor = 1.0 / (1.0 + pow(time_now/b,3))
-
 	if factor > 0.4:
 		_normality(factor)
 	elif factor < 0.4:
@@ -69,10 +70,7 @@ func _invader_ditch():
 			break
 	_timer_ditch.start(rng.randf_range(6, 12))
 
-func _add_invaders():
-	var d = 300
-	var number_invaders = 5
-	var number_rows = 5
+func _add_invaders(d, number_invaders, number_rows):
 	for j in range(number_rows):
 		for i in range(number_invaders):
 			var invader = Invader.instance()
@@ -81,9 +79,7 @@ func _add_invaders():
 			invader.get_node("Area2D/CollisionShape2D").position = Vector2(0, d + 50*j)
 			invader.get_node("Area2D").rotation_degrees += i*(360 / number_invaders)
 
-func _add_blokcs():
-	var d1 = 100
-	var number_blocks = 5
+func _add_blokcs(d1, number_blocks):
 	for i in range(number_blocks):
 		var block = DestructibleBlock.instance()
 		$BlockContainer.add_child(block)

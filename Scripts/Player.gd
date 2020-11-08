@@ -3,7 +3,7 @@ extends KinematicBody2D
 export (PackedScene) var Bullet
 
 export var velocity = 0
-export var turning = 3.0
+export var turning = 2.0
 
 func _process(delta):
 	if Input.is_action_pressed("turn_left"):
