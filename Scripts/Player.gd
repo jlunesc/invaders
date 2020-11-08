@@ -5,11 +5,17 @@ export (PackedScene) var Bullet
 export var velocity = 0
 export var turning = 2.0
 
-var amo = 3
+var amo = 4
 var _timer_amo
 var can_shoot = true
 
+var health_max = 5
+var health = health_max
+var health_incr = 0.05
+var damage = 0.75
+
 func _process(delta):
+	_recover_health(delta)
 	if Input.is_action_pressed("turn_left"):
 		rotation -= turning * delta
 	if Input.is_action_pressed("turn_right"):
@@ -45,5 +51,13 @@ func _reload():
 		$SoundFxs/reloaded.play()
 
 func _get_damage():
+	health -= damage
 	get_tree().get_current_scene().get_node('SoundFxs/impact_player').play()
 	$Camera2D.shake(0.75, 150, 7.5)
+	if health <= 0:
+		pass
+		# get_tree().reload_current_scene()
+
+func _recover_health(delta):
+	if health < health_max:
+		health += health_incr*delta

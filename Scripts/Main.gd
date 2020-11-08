@@ -28,7 +28,7 @@ func _ready():
 
 	var d = 200
 	var number_invaders = 7
-	var number_rows = 5
+	var number_rows = 6
 	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	
 	var d1 = 100
