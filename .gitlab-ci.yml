@@ -15,4 +15,4 @@ web:
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
-      - build/web
+      - build/html5
