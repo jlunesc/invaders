@@ -12,9 +12,13 @@ func _physics_process(delta):
 func _on_Bullet_area_entered(area):
 	if area.get_parent().is_in_group("Invaders"):
 		area.get_parent().queue_free()
-	queue_free()
+	_disapear()
 
 func _on_Bullet_body_entered(body):
 	if body.is_in_group("DestructibleBlock"):
 		body.queue_free()
-		queue_free()
+		_disapear()
+
+func _disapear():
+	get_tree().get_current_scene().get_node('SoundFxs/impact_others').play() 
+	queue_free()

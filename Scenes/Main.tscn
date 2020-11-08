@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sound FXs/blastInvader.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sound FXs/impactOthers.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
+[ext_resource path="res://Sound FXs/impactPlayer.wav" type="AudioStream" id=5]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
@@ -11,3 +14,14 @@ script = ExtResource( 4 )
 [node name="InvaderContainer" type="Node" parent="."]
 
 [node name="BlockContainer" type="Node" parent="."]
+
+[node name="SoundFxs" type="Node2D" parent="."]
+
+[node name="shoot_invader" type="AudioStreamPlayer2D" parent="SoundFxs"]
+stream = ExtResource( 2 )
+
+[node name="impact_player" type="AudioStreamPlayer2D" parent="SoundFxs"]
+stream = ExtResource( 5 )
+
+[node name="impact_others" type="AudioStreamPlayer2D" parent="SoundFxs"]
+stream = ExtResource( 3 )

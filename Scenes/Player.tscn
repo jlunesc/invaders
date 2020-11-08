@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/BulletPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Camera2D_player.gd" type="Script" id=4]
+[ext_resource path="res://Sound FXs/blastPlayer.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 39.3814
@@ -23,10 +24,15 @@ texture = ExtResource( 2 )
 position = Vector2( 0, -45 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -150 )
+position = Vector2( 0, -200 )
 scale = Vector2( 0.5, 0.5 )
 current = true
-zoom = Vector2( 1.33, 1.33 )
+zoom = Vector2( 1.5, 1.5 )
 smoothing_enabled = true
 smoothing_speed = 1.0
 script = ExtResource( 4 )
+
+[node name="SoundFxs" type="Node2D" parent="."]
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="SoundFxs"]
+stream = ExtResource( 5 )

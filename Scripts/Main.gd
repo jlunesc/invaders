@@ -49,6 +49,7 @@ func _invader_shoot():
 		if inv._can_shoot():
 			inv.set_owner($InvaderContainer.get_owner())
 			inv._shoot()
+			$SoundFxs/shoot_invader.play()
 			break
 	time_now =  (OS.get_unix_time()-_reference_time) / 60.0
 	var b = pow(10, -0.5)
@@ -57,7 +58,6 @@ func _invader_shoot():
 		_normality(factor)
 	elif factor < 0.4:
 		_set_armagedon()
-
 
 func _invader_ditch():
 	rng.randomize()

@@ -30,5 +30,5 @@ position = Vector2( 0, -5 )
 rotation = 3.14159
 scale = Vector2( 1.58201, 1.61559 )
 enabled = true
-cast_to = Vector2( 0, 120 )
+cast_to = Vector2( 0, 200 )
 collide_with_areas = true

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reloaded.wav-776be7419d03409041d1e1b53df46c05.sample"
+
+[deps]
+
+source_file="res://Sound FXs/reloaded.wav"
+dest_files=[ "res://.import/reloaded.wav-776be7419d03409041d1e1b53df46c05.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

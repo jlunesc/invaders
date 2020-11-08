@@ -16,9 +16,11 @@ func _process(delta):
 
 func shoot():
 	$Camera2D.shake(0.25, 50, 2)
+	$SoundFxs/shoot.play()
 	var b = Bullet.instance()
 	owner.add_child(b)
 	b.transform = $Position2D.global_transform
 
 func _get_damage():
+	get_tree().get_current_scene().get_node('SoundFxs/impact_player').play()
 	$Camera2D.shake(0.75, 150, 7.5)
