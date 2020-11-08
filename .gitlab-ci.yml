@@ -2,6 +2,7 @@ image: barichello/godot-ci:3.2.3
 
 variables:
   EXPORT_NAME: invaders
+  ITCHIO_NAME: jlunesc/invaders 
 
 stages:
   - export
@@ -58,3 +59,15 @@ pages:
     paths:
       - public
 
+itch:
+  stage: deploy
+  dependencies:
+    - web
+    - linux
+    - macosx
+    - windows
+  script:
+    - butler push build/html5 $ITCHIO_NAME:web-stable
+    - butler push build/linux $ITCHIO_NAME:linux-stable
+    - butler push build/macOS $ITCHIO_NAME:macosx-stable
+    - butler push build/windows $ITCHIO_NAME:windows-stable
