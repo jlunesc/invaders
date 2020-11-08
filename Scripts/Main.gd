@@ -39,6 +39,8 @@ func _process(delta):
 		_invader_shoot()
 	if _timer_ditch.get_time_left() < 1:
 		_invader_ditch()
+	if not $Music/SoundTrack.is_playing():
+		$Music/SoundTrack.play()
 
 func _invader_shoot():
 	rng.randomize()
