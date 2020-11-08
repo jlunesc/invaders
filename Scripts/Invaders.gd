@@ -4,7 +4,7 @@ export (PackedScene) var Bullet
 
 export var velocity = 0
 export var turning = 4
-export var moving_rate = 2.01
+export var moving_rate = 2.0
 var _timer
 
 func _ready():

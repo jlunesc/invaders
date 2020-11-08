@@ -3,7 +3,7 @@ extends Node2D
 var units = preload("res://Scenes/UnitBlocks.tscn")
 
 export var velocity = 0
-export var turning = 1.0
+export var turning = 2.0
 
 func _ready():
 	$Node2D.position = Vector2(100,0)
