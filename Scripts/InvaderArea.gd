@@ -34,16 +34,20 @@ func _shoot():
 func _can_shoot():
 	var collider = get_node('Area2D/CollisionShape2D/Sprite/Position2D/RayCast2D').get_collider()
 	if  not is_instance_valid(collider):
-		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color(250,0,0)
+		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('ffffff')
+		$Area2D/CollisionShape2D/AnimatedSprite.modulate = Color('db3e20')
 		return true
 		
 	elif is_instance_valid(collider):
 		if not collider.get_parent().is_in_group("Invaders"):
-			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color(250,0,0)
+			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('ffffff')
+			$Area2D/CollisionShape2D/AnimatedSprite.modulate = Color('db3e20')
 			return true
 		else:
-			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color(0,0,250)
+			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('652c2c')
+			$Area2D/CollisionShape2D/AnimatedSprite.modulate = Color(1, 1, 1)
 			return false
 	else:
-		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color(0,0,250)
+		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('652c2c')
+		$Area2D/CollisionShape2D/AnimatedSprite.modulate = Color(1, 1, 1)
 		return false

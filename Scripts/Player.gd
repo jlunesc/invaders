@@ -5,7 +5,8 @@ export (PackedScene) var Bullet
 export var velocity = 0
 export var turning = 2.0
 
-var amo = 4
+var amo_max = 4
+var amo = amo_max
 var _timer_amo
 var can_shoot = true
 
@@ -45,7 +46,7 @@ func shoot():
 
 func _reload():
 	if _timer_amo.get_time_left() < 1:
-		amo = 3
+		amo = amo_max
 		can_shoot=true
 		_timer_amo.stop()
 		$SoundFxs/reloaded.play()
@@ -55,8 +56,7 @@ func _get_damage():
 	get_tree().get_current_scene().get_node('SoundFxs/impact_player').play()
 	$Camera2D.shake(0.75, 150, 7.5)
 	if health <= 0:
-		pass
-		# get_tree().reload_current_scene()
+		get_tree().reload_current_scene()
 
 func _recover_health(delta):
 	if health < health_max:

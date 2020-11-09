@@ -27,8 +27,8 @@ func _ready():
 	_timer_ditch.autostart = true
 
 	var d = 200
-	var number_invaders = 7
-	var number_rows = 6
+	var number_invaders = 5
+	var number_rows = 4
 	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	
 	var d1 = 100
