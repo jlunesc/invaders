@@ -3,8 +3,8 @@ extends Node2D
 export (PackedScene) var Bullet
 
 export var velocity = 0
-export var rotation_speed = 1
-export var moving_rate = 2.0
+export var rotation_speed = 1.5
+export var moving_rate = 1.25
 var _timer
 
 func _ready():

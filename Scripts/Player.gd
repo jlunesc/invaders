@@ -15,6 +15,8 @@ var health = health_max
 var health_incr = 0.05
 var damage = 0.75
 
+var shoot_wait = 3
+
 func _process(delta):
 	_recover_health(delta)
 	if Input.is_action_pressed("turn_left"):
@@ -39,7 +41,7 @@ func shoot():
 			can_shoot=false
 			_timer_amo = Timer.new()
 			add_child(_timer_amo)
-			_timer_amo.start(5)
+			_timer_amo.start(shoot_wait)
 			_timer_amo.autostart = true
 	else: 
 		$SoundFxs/failed_shoot.play()

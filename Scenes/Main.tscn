@@ -20,7 +20,7 @@ animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 10 ), ExtResource( 14 ) ],
 "loop": false,
 "name": "default",
-"speed": 15.0
+"speed": 24.0
 } ]
 
 [node name="Main" type="Node2D"]
@@ -52,4 +52,5 @@ autoplay = true
 [node name="explosion" type="AnimatedSprite" parent="."]
 position = Vector2( 1556.44, -41.7193 )
 scale = Vector2( 0.75, 0.75 )
+z_index = 3
 frames = SubResource( 1 )

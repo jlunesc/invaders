@@ -101,5 +101,5 @@ func _make_explosion(position):
 	add_child(new_explosion)
 	new_explosion.position = position
 	new_explosion.playing = true
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.33), "timeout")
 	new_explosion.queue_free()
