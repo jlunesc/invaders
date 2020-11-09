@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sound FXs/blastInvader.wav" type="AudioStream" id=2]
@@ -6,6 +6,22 @@
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://Sound FXs/impactPlayer.wav" type="AudioStream" id=5]
 [ext_resource path="res://Music/SoundTrack.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sprites/explosion/sprite_0.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/explosion/sprite_3.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/explosion/sprite_2.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/explosion/sprite_6.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/explosion/sprite_4.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/explosion/sprite_1.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/explosion/sprite_5.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/explosion/sprite_7.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 10 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "default",
+"speed": 15.0
+} ]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
@@ -32,3 +48,8 @@ stream = ExtResource( 3 )
 [node name="SoundTrack" type="AudioStreamPlayer2D" parent="Music"]
 stream = ExtResource( 6 )
 autoplay = true
+
+[node name="explosion" type="AnimatedSprite" parent="."]
+position = Vector2( 1556.44, -41.7193 )
+scale = Vector2( 0.75, 0.75 )
+frames = SubResource( 1 )

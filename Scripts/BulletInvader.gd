@@ -22,5 +22,6 @@ func _on_BulletInvader_area_entered(area):
 		_disapear()
 
 func _disapear():
+	get_tree().get_current_scene()._make_explosion(position)
 	get_tree().get_current_scene().get_node('SoundFxs/impact_others').play()
 	queue_free()

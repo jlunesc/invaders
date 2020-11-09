@@ -20,5 +20,6 @@ func _on_Bullet_body_entered(body):
 		_disapear()
 
 func _disapear():
+	get_tree().get_current_scene()._make_explosion(position)
 	get_tree().get_current_scene().get_node('SoundFxs/impact_others').play() 
 	queue_free()

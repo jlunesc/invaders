@@ -27,8 +27,8 @@ func _ready():
 	_timer_ditch.autostart = true
 
 	var d = 200
-	var number_invaders = 5
-	var number_rows = 4
+	var number_invaders = 7
+	var number_rows = 3
 	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	
 	var d1 = 100
@@ -95,3 +95,11 @@ func _normality(factor):
 func _set_armagedon():
 	yield(get_tree().create_timer(0.33), "timeout")
 	_reference_time = OS.get_unix_time()
+	
+func _make_explosion(position):
+	var new_explosion = $explosion.duplicate()
+	add_child(new_explosion)
+	new_explosion.position = position
+	new_explosion.playing = true
+	yield(get_tree().create_timer(0.5), "timeout")
+	new_explosion.queue_free()
