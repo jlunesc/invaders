@@ -12,5 +12,5 @@ func _process(delta):
 		rotation -= turning * delta
 	if Input.is_action_pressed("block_turn_right"):
 		rotation += turning * delta
-	move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
+	var _moveCollision = move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
 	

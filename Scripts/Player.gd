@@ -13,7 +13,6 @@ var can_shoot = true
 var health_max = 5
 var health = health_max
 var health_incr = 0.05
-var damage = 0.75
 
 var shoot_wait = 3
 
@@ -25,7 +24,7 @@ func _process(delta):
 		rotation += turning * delta
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
-	move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
+	var _moveCollision = move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
 	if not can_shoot:
 		_reload()
 
@@ -53,8 +52,8 @@ func _reload():
 		_timer_amo.stop()
 		$SoundFxs/reloaded.play()
 
-func _get_damage():
-	health -= damage
+func _get_damage(damage_received):
+	health -= damage_received
 	get_tree().get_current_scene().get_node('SoundFxs/impact_player').play()
 	$Camera2D.shake(0.75, 150, 7.5)
 	if health <= 0:

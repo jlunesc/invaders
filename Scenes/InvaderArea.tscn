@@ -47,4 +47,5 @@ collide_with_areas = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D/CollisionShape2D"]
 frames = SubResource( 2 )
+frame = 3
 playing = true

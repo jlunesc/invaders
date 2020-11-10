@@ -5,9 +5,9 @@ var units = preload("res://Scenes/UnitBlocks.tscn")
 export var velocity = 0
 export var turning = 2.0
 
-var len_x = 6
+var len_x = 4
 var len_y = 2
-var size_square = 5
+var size_square = 7
 
 var rng = RandomNumberGenerator.new()
 
@@ -23,15 +23,15 @@ func _process(delta):
 	if Input.is_action_pressed("block_turn_right"):
 		rotation += turning * delta
 	
-func _make_shields(len_x, len_y, size_square):
+func _make_shields(_len_x, _len_y, _size_square):
 	rng.randomize()
-	for i in range(len_x):
-		for j in range(len_y):
+	for i in range(_len_x):
+		for j in range(_len_y):
 			var b_unit = units.instance()
 			$Node2D.add_child(b_unit)
 			b_unit.add_to_group('DestructibleBlock')
 			b_unit.scale = Vector2(0.5, 0.5)
 			var ran_x = rng.randfn(0, 1)
-			var ran_y = rng.randfn(0, 1)
-			b_unit.position = -Vector2(ran_x+i-len_x*0.5,ran_y+j-len_y*0.5)*size_square
+			var ran_y = rng.randfn(0, 0.5)
+			b_unit.position = -Vector2(ran_x+i-len_x*0.5,ran_y+j-len_y*0.5)*_size_square
 			b_unit.rotation_degrees = rng.randf_range(0, 360)

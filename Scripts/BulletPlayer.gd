@@ -13,6 +13,7 @@ func _on_Bullet_area_entered(area):
 	if area.get_parent().is_in_group("Invaders"):
 		area.get_parent().queue_free()
 		_increase_score()
+		get_tree().get_current_scene()._n_invaders_killed += 1
 	elif area.is_in_group("bullets_invader"):
 		area.queue_free()
 		_increase_score()

@@ -1,6 +1,6 @@
 extends Label
 
-func _process(delta):
+func _process(_delta):
 	if get_tree().get_current_scene().get_node('Player').amo > 0:
 		modulate = Color('ffffff')
 	else: 
