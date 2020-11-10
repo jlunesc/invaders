@@ -35,7 +35,6 @@ texture = ExtResource( 1 )
 modulate = Color( 0.243137, 0.54902, 0.2, 1 )
 scale = Vector2( 2.62671, 1.18581 )
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 playing = true
-[connection signal="area_entered" from="." to="." method="_on_BulletInvader_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_BulletInvader_body_entered"]

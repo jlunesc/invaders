@@ -11,6 +11,8 @@ var time_start = 0
 var time_now = 0
 var _reference_time
 
+var score = 0
+
 func _ready():
 	time_start = OS.get_unix_time()
 	_reference_time = time_start

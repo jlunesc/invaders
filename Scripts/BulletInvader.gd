@@ -16,11 +16,6 @@ func _on_BulletInvader_body_entered(body):
 		body.queue_free()
 		_disapear()
 
-func _on_BulletInvader_area_entered(area):
-	if area.is_in_group("bullets_player"):
-		area.queue_free()
-		_disapear()
-
 func _disapear():
 	get_tree().get_current_scene()._make_explosion(position)
 	get_tree().get_current_scene().get_node('SoundFxs/impact_others').play()
