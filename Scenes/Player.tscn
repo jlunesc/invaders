@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/sprite_ship.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/sprite_ship_3.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/BulletPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Camera2D_player.gd" type="Script" id=4]
 [ext_resource path="res://Sound FXs/blastPlayer.wav" type="AudioStream" id=5]

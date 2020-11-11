@@ -16,6 +16,8 @@ var score = 0
 var _n_invaders_killed = 0
 var _invaders_to_kill = 4
 
+var _bonification = 4
+
 var d1 = 100 # distance of the blocks
 var d = 200 # distance of the invaders
 var number_invaders = 7
@@ -45,12 +47,11 @@ func _process(_delta):
 		_invader_shoot()
 	if _timer_ditch.get_time_left() < 1:
 		_invader_ditch()
-	if not $Music/SoundTrack.is_playing():
-		$Music/SoundTrack.play()
-	if _n_invaders_killed > _invaders_to_kill:
-		_add_fbigboss(d, number_rows)
-		_invaders_to_kill += 2
-		_n_invaders_killed = 0
+
+	_play_sound_track()
+	_add_bigboss1()
+	_apply_bonification()
+
 
 func _invader_shoot():
 	rng.randomize()
@@ -120,3 +121,19 @@ func _add_fbigboss(_d, _number_rows):
 	fbigboss.position = get_node("Player").position
 	fbigboss.get_node("Area2D/CollisionShape2D/RayCast2D").cast_to = Vector2(0, space_between_rows*(_number_rows))
 	fbigboss.get_node("Area2D/CollisionShape2D").position = Vector2(0, _d + space_between_rows*(_number_rows))
+
+func _play_sound_track():
+	if not $Music/SoundTrack.is_playing():
+		$Music/SoundTrack.play()
+
+func _add_bigboss1():
+	if _n_invaders_killed > _invaders_to_kill:
+		_add_fbigboss(d+10, number_rows)
+		_invaders_to_kill += 1
+		_n_invaders_killed = 0
+
+func _apply_bonification():
+	if score > _bonification:
+		get_node('Player').amo_max += 2
+		get_node('Player/SoundFxs/reloaded').play()
+		_bonification += 3.5

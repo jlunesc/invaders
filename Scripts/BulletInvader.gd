@@ -1,12 +1,12 @@
 extends Area2D
 
 var speed = 300
-var damage_bullet = 0.75
+var damage_bullet = 0.5
 
 func _ready():
 	add_to_group('bullets_invader')
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	position += - transform.y * speed * delta
 
 func _on_BulletInvader_body_entered(body):

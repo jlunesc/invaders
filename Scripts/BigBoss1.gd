@@ -3,7 +3,7 @@ extends Node2D
 export (PackedScene) var Bullet
 
 export var velocity = 0
-export var rotation_speed = 0.75
+export var rotation_speed = 0.5
 
 var _timer_movement
 var moving_time = 5
@@ -57,6 +57,6 @@ func _can_shoot():
 func _shoot():
 	var b = Bullet.instance()
 	b.damage_bullet = 1.5
-	b.modulate = Color(0.75,0,0.5)
+	b.modulate = Color('710957')
 	add_child(b)
 	b.transform = $Area2D/CollisionShape2D/Position2D.global_transform
