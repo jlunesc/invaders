@@ -14,7 +14,7 @@ var _reference_time
 
 var score = 0
 var _n_invaders_killed = 0
-var _invaders_to_kill = 4
+var _invaders_to_kill = 5
 
 var _bonification = 4
 
@@ -25,13 +25,17 @@ var number_rows = 3
 var space_between_rows = 50 # of invaders
 
 func _ready():
+	var _signal_connected = get_node("Player").connect("player_is_dead", self, "GameOver")
+	
+	$Instructions.visible = true
+	$GameOver.visible = false
 	time_start = OS.get_unix_time()
 	_reference_time = time_start
 	
 	# timer for the first shoot
 	_timer_shoot = Timer.new()
 	add_child(_timer_shoot)
-	_timer_shoot.start(3.5)
+	_timer_shoot.start(2)
 	_timer_shoot.autostart = true
 
 	_timer_ditch = Timer.new()
@@ -41,6 +45,9 @@ func _ready():
 
 	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
+	
+	yield(get_tree().create_timer(2.5), "timeout")
+	$Instructions.visible = false
 
 func _process(_delta):
 	if _timer_shoot.get_time_left() < 1:
@@ -52,6 +59,9 @@ func _process(_delta):
 	_add_bigboss1()
 	_apply_bonification()
 
+func _input(_event):
+	if Input.is_action_just_pressed("retry"):
+		get_tree().reload_current_scene()
 
 func _invader_shoot():
 	rng.randomize()
@@ -67,9 +77,9 @@ func _invader_shoot():
 	time_now =  (OS.get_unix_time()-_reference_time) / 60.0
 	var b = pow(10, -0.5)
 	var factor = 1.0 / (1.0 + pow(time_now/b,3))
-	if factor > 0.4:
+	if factor > 0.6:
 		_normality(factor)
-	elif factor < 0.4:
+	elif factor < 4.0:
 		_set_armagedon()
 
 func _invader_ditch():
@@ -104,7 +114,7 @@ func _normality(factor):
 	_timer_shoot.start(rng.randf_range(5, 10)*factor)
 
 func _set_armagedon():
-	yield(get_tree().create_timer(0.33), "timeout")
+	yield(get_tree().create_timer(0.15), "timeout")
 	_reference_time = OS.get_unix_time()
 
 func _make_explosion(position):
@@ -115,20 +125,20 @@ func _make_explosion(position):
 	yield(get_tree().create_timer(0.33), "timeout")
 	new_explosion.queue_free()
 
-func _add_fbigboss(_d, _number_rows):
-	var fbigboss = FBigBoss.instance()
-	add_child(fbigboss)
-	fbigboss.position = get_node("Player").position
-	fbigboss.get_node("Area2D/CollisionShape2D/RayCast2D").cast_to = Vector2(0, space_between_rows*(_number_rows))
-	fbigboss.get_node("Area2D/CollisionShape2D").position = Vector2(0, _d + space_between_rows*(_number_rows))
-
 func _play_sound_track():
 	if not $Music/SoundTrack.is_playing():
 		$Music/SoundTrack.play()
 
 func _add_bigboss1():
 	if _n_invaders_killed > _invaders_to_kill:
-		_add_fbigboss(d+10, number_rows)
+		var _d = d+10
+		var _number_rows = number_rows
+		var fbigboss = FBigBoss.instance()
+		$InvaderContainer.add_child(fbigboss)
+		fbigboss.position = get_node("Player").position
+		fbigboss.get_node("Area2D/CollisionShape2D/RayCast2D").cast_to = Vector2(0, space_between_rows*(_number_rows))
+		fbigboss.get_node("Area2D/CollisionShape2D").position = Vector2(0, _d + space_between_rows*(_number_rows))
+		
 		_invaders_to_kill += 1
 		_n_invaders_killed = 0
 
@@ -137,3 +147,12 @@ func _apply_bonification():
 		get_node('Player').amo_max += 2
 		get_node('Player/SoundFxs/reloaded').play()
 		_bonification += 3.5
+
+func GameOver():
+	get_node('GameOver').visible = true
+	for node in $InvaderContainer.get_children():
+		node.queue_free()
+	for node in $BlockContainer.get_children():
+		node.queue_free()
+	$Player.set_process(false)
+

@@ -17,8 +17,8 @@ func _on_Bullet_area_entered(area):
 	elif area.is_in_group("bullets_invader"):
 		area.queue_free()
 		_increase_score(0.5)
-	elif area.is_in_group("gib_bosses"):
-		area.queue_free()
+	elif area.get_parent().is_in_group("big_bosses"):
+		area.get_parent().queue_free()
 		_increase_score(2)
 	_disapear()
 

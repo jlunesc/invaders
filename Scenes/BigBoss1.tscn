@@ -17,7 +17,7 @@ Bullet = ExtResource( 3 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Area2D/CollisionShape2D"]
-position = Vector2( 0.187289, -0.256882 )
+position = Vector2( -0.0933349, 5.07481 )
 scale = Vector2( 1.11173, 0.819322 )
 texture = ExtResource( 1 )
 

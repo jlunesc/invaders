@@ -13,6 +13,7 @@ var _keep_shooting = true
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	add_to_group('big_bosses')
 	rng.randomize()
 	_timer_movement = Timer.new()
 	add_child(_timer_movement)

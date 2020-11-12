@@ -5,12 +5,14 @@ export (PackedScene) var Bullet
 export var velocity = 0
 export var turning = 2.0
 
+signal player_is_dead
+
 var amo_max = 4
 var amo = amo_max
 var _timer_amo
 var can_shoot = true
 
-var health_max = 5
+var health_max = 2
 var health = health_max
 var health_incr = 0.05
 
@@ -57,7 +59,7 @@ func _get_damage(damage_received):
 	get_tree().get_current_scene().get_node('SoundFxs/impact_player').play()
 	$Camera2D.shake(0.75, 150, 7.5)
 	if health <= 0:
-		get_tree().reload_current_scene()
+		emit_signal("player_is_dead")
 
 func _recover_health(delta):
 	if health < health_max:

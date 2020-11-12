@@ -53,5 +53,5 @@ position = Vector2( -0.250001, 0.75 )
 scale = Vector2( 0.614583, 0.697917 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 3
+frame = 1
 playing = true

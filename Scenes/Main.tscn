@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sound FXs/blastInvader.wav" type="AudioStream" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://Scripts/score.gd" type="Script" id=18]
 [ext_resource path="res://Scripts/health.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/amo.gd" type="Script" id=20]
+[ext_resource path="res://Scripts/instructions.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/GameOver.gd" type="Script" id=22]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -239,7 +241,8 @@ layer = 100
 
 [node name="UI" type="Node2D" parent="CanvasLayer/ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0.486275 )
-z_index = 11
+z_index = 4096
+z_as_relative = false
 
 [node name="Control" type="Control" parent="CanvasLayer/ParallaxBackground/UI"]
 anchor_right = 0.75
@@ -253,6 +256,9 @@ __meta__ = {
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/ParallaxBackground/UI/Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="score" type="Label" parent="CanvasLayer/ParallaxBackground/UI/Control/HBoxContainer"]
 margin_right = 90.0
@@ -282,6 +288,66 @@ margin_bottom = 128.0
 custom_fonts/font = SubResource( 3 )
 text = "Score "
 script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="Node2D" parent="."]
+position = Vector2( -200, -200 )
+scale = Vector2( 2, 2 )
+z_index = 100
+
+[node name="Control2" type="Control" parent="Instructions"]
+anchor_right = 0.75
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Instructions/Control2"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="instructions" type="Label" parent="Instructions/Control2/HBoxContainer"]
+margin_right = 215.0
+margin_bottom = 126.0
+custom_fonts/font = SubResource( 3 )
+text = "WASD to move
+Space to shoot
+p to pause"
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+position = Vector2( -200, -200 )
+scale = Vector2( 2, 2 )
+z_index = 100
+
+[node name="Control2" type="Control" parent="GameOver"]
+anchor_right = 0.75
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="GameOver/Control2"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="GameOver" type="Label" parent="GameOver/Control2/HBoxContainer"]
+margin_right = 215.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 3 )
+text = "GAME OVER 
+r to retry"
+script = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
