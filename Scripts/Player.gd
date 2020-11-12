@@ -12,7 +12,7 @@ var amo = amo_max
 var _timer_amo
 var can_shoot = true
 
-var health_max = 2
+var health_max = 5
 var health = health_max
 var health_incr = 0.05
 

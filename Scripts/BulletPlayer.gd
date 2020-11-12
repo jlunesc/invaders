@@ -20,6 +20,9 @@ func _on_Bullet_area_entered(area):
 	elif area.get_parent().is_in_group("big_bosses"):
 		area.get_parent().queue_free()
 		_increase_score(2)
+	elif area.get_parent().is_in_group("final_boss"):
+		area.get_parent()._get_damage(1.0)
+		_increase_score(4)
 	_disapear()
 
 func _on_Bullet_body_entered(body):

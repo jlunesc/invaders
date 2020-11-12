@@ -1,5 +1,6 @@
 extends Node2D
 
+var FinalBoss = preload("res://Scenes/FinalBoss.tscn")
 var FBigBoss = preload("res://Scenes/BigBoss1.tscn")
 var Invader = preload("res://Scenes/InvaderArea.tscn")
 var Block = preload("res://Scenes/Blocks.tscn")
@@ -14,7 +15,7 @@ var _reference_time
 
 var score = 0
 var _n_invaders_killed = 0
-var _invaders_to_kill = 5
+var _invaders_to_kill = 4
 
 var _bonification = 4
 
@@ -35,7 +36,7 @@ func _ready():
 	# timer for the first shoot
 	_timer_shoot = Timer.new()
 	add_child(_timer_shoot)
-	_timer_shoot.start(2)
+	_timer_shoot.start(6)
 	_timer_shoot.autostart = true
 
 	_timer_ditch = Timer.new()
@@ -58,6 +59,7 @@ func _process(_delta):
 	_play_sound_track()
 	_add_bigboss1()
 	_apply_bonification()
+	_add_final_boss()
 
 func _input(_event):
 	if Input.is_action_just_pressed("retry"):
@@ -139,8 +141,15 @@ func _add_bigboss1():
 		fbigboss.get_node("Area2D/CollisionShape2D/RayCast2D").cast_to = Vector2(0, space_between_rows*(_number_rows))
 		fbigboss.get_node("Area2D/CollisionShape2D").position = Vector2(0, _d + space_between_rows*(_number_rows))
 		
-		_invaders_to_kill += 1
+		_invaders_to_kill += 0
 		_n_invaders_killed = 0
+
+func _add_final_boss():
+	if $InvaderContainer.get_child_count() == 0:
+		var final_boss = FinalBoss.instance()
+		$InvaderContainer.add_child(final_boss)
+		final_boss.connect("final_boss_dead", self, '_you_win')
+		final_boss.position = get_node("Player").position
 
 func _apply_bonification():
 	if score > _bonification:
@@ -155,4 +164,11 @@ func GameOver():
 	for node in $BlockContainer.get_children():
 		node.queue_free()
 	$Player.set_process(false)
+	set_process(false)
 
+func _you_win():
+	get_node("YouWin").visible = true
+	for node in $BlockContainer.get_children():
+		node.queue_free()
+	$Player.set_process(false)
+	$InvaderContainer.get_child(0).set_process(false)
