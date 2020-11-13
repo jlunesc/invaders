@@ -27,8 +27,7 @@ var _invaders_to_kill = 6
 
 func _ready():
 	var _signal_connected = get_node("Player").connect("player_is_dead", self, "GameOver")
-	
-	$Instructions.visible = true
+
 	$GameOver.visible = false
 	time_start = OS.get_unix_time()
 	_reference_time = time_start
@@ -44,9 +43,10 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	# _add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
 	
+	$Instructions.visible = true
 	yield(get_tree().create_timer(2.5), "timeout")
 	$Instructions.visible = false
 
@@ -157,6 +157,8 @@ func _add_final_boss():
 		$InvaderContainer.add_child(final_boss)
 		final_boss.connect("final_boss_dead", self, '_you_win')
 		final_boss.position = get_node("Player").position
+		
+		$Player.turning += 1 
 
 func _apply_bonification():
 	if score > _bonification:
@@ -184,4 +186,4 @@ func _check_zoom():
 	if get_tree().get_nodes_in_group("big_bosses").size() + get_tree().get_nodes_in_group("final_boss").size()> 0:
 		$Player/Camera2D.zoom = Vector2(1.0,1.0)
 	else: 
-		$Player/Camera2D.zoom = Vector2(0.85,0.85)
+		$Player/Camera2D.zoom = Vector2(0.9,0.9)
