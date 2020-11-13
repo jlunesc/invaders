@@ -3,10 +3,11 @@ extends Node2D
 export (PackedScene) var Bullet
 
 export var velocity = 0
-export var rotation_speed = 0.5
+export var rotation_speed = 0.65
 
 var _timer_movement
 var moving_time = 5
+var health = 2
 
 var _keep_shooting = true
 
@@ -27,7 +28,7 @@ func _process(delta):
 func _move(delta):
 	if _timer_movement.get_time_left() > 1:
 		_keep_shooting = true
-		$Area2D.rotation += rotation_speed * delta
+		$Area2D.rotation += rotation_speed * delta * (-1.0)
 	elif _timer_movement.get_time_left() < 1:
 		if _keep_shooting:
 			if _can_shoot():
@@ -38,26 +39,30 @@ func _can_shoot():
 	var collider = get_node('Area2D/CollisionShape2D/RayCast2D').get_collider()
 	if  not is_instance_valid(collider):
 		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('ffffff')
-		# $Area2D/CollisionShape2D/AnimatedSprite.modulate = Color('db3e20')
 		return true
 		
 	elif is_instance_valid(collider):
 		if not collider.get_parent().is_in_group("Invaders"):
 			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('ffffff')
-			# $Area2D/CollisionShape2D/AnimatedSprite.modulate = Color('db3e20')
 			return true
 		else:
-			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('652c2c')
-			# $Area2D/CollisionShape2D/AnimatedSprite.modulate = Color(1, 1, 1)
+			get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('00edff')
 			return false
 	else:
-		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('652c2c')
-		# $Area2D/CollisionShape2D/AnimatedSprite.modulate = Color(1, 1, 1)
+		get_node('Area2D/CollisionShape2D/Sprite').modulate = Color('00edff')
 		return false
 
 func _shoot():
+	get_tree().get_current_scene().get_node('SoundFxs/shoot_invader').play()
 	var b = Bullet.instance()
 	b.damage_bullet = 1.5
 	b.modulate = Color('710957')
 	add_child(b)
 	b.transform = $Area2D/CollisionShape2D/Position2D.global_transform
+
+func _get_damage(damage_received):
+	rotation_speed += 0.20
+	modulate = Color('ff0e02')
+	health -= damage_received
+	if health <= 0:
+		queue_free()

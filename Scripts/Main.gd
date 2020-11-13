@@ -13,10 +13,6 @@ var time_start = 0
 var time_now = 0
 var _reference_time
 
-var score = 0
-var _n_invaders_killed = 0
-var _invaders_to_kill = 4
-
 var _bonification = 4
 
 var d1 = 100 # distance of the blocks
@@ -24,6 +20,10 @@ var d = 200 # distance of the invaders
 var number_invaders = 7
 var number_rows = 3
 var space_between_rows = 50 # of invaders
+
+var score = 0
+var _n_invaders_killed = 0
+var _invaders_to_kill = 6
 
 func _ready():
 	var _signal_connected = get_node("Player").connect("player_is_dead", self, "GameOver")
@@ -44,7 +44,7 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	# _add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
 	
 	yield(get_tree().create_timer(2.5), "timeout")
@@ -57,13 +57,14 @@ func _process(_delta):
 		_invader_ditch()
 
 	_play_sound_track()
+	_check_zoom()
 	_add_bigboss1()
 	_apply_bonification()
 	_add_final_boss()
 
 func _input(_event):
 	if Input.is_action_just_pressed("retry"):
-		get_tree().reload_current_scene()
+		var _reload_main = get_tree().reload_current_scene()
 
 func _invader_shoot():
 	rng.randomize()
@@ -132,7 +133,7 @@ func _play_sound_track():
 		$Music/SoundTrack.play()
 
 func _add_bigboss1():
-	if _n_invaders_killed > _invaders_to_kill:
+	if _n_invaders_killed == _invaders_to_kill:
 		var _d = d+10
 		var _number_rows = number_rows
 		var fbigboss = FBigBoss.instance()
@@ -141,11 +142,17 @@ func _add_bigboss1():
 		fbigboss.get_node("Area2D/CollisionShape2D/RayCast2D").cast_to = Vector2(0, space_between_rows*(_number_rows))
 		fbigboss.get_node("Area2D/CollisionShape2D").position = Vector2(0, _d + space_between_rows*(_number_rows))
 		
-		_invaders_to_kill += 0
-		_n_invaders_killed = 0
+		if _invaders_to_kill > 1:
+			_invaders_to_kill -= 1
+			_n_invaders_killed = 0
 
 func _add_final_boss():
 	if $InvaderContainer.get_child_count() == 0:
+		for node in $BlockContainer.get_children():
+			node.queue_free()
+		_add_blokcs(1.33*d1, 3)
+		for node in $BlockContainer.get_children():
+			node.turning = 3.5
 		var final_boss = FinalBoss.instance()
 		$InvaderContainer.add_child(final_boss)
 		final_boss.connect("final_boss_dead", self, '_you_win')
@@ -172,3 +179,9 @@ func _you_win():
 		node.queue_free()
 	$Player.set_process(false)
 	$InvaderContainer.get_child(0).set_process(false)
+
+func _check_zoom():
+	if get_tree().get_nodes_in_group("big_bosses").size() + get_tree().get_nodes_in_group("final_boss").size()> 0:
+		$Player/Camera2D.zoom = Vector2(1.0,1.0)
+	else: 
+		$Player/Camera2D.zoom = Vector2(0.85,0.85)

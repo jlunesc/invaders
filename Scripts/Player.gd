@@ -25,6 +25,7 @@ func _process(delta):
 	if Input.is_action_pressed("turn_right"):
 		rotation += turning * delta
 	if Input.is_action_just_pressed("shoot"):
+#	if Input.is_action_pressed("shoot"):
 		shoot()
 	var _moveCollision = move_and_collide(Vector2.RIGHT.rotated(rotation) * velocity * delta)
 	if not can_shoot:

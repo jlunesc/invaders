@@ -240,7 +240,8 @@ layer = 8
 layer = 100
 
 [node name="UI" type="Node2D" parent="CanvasLayer/ParallaxBackground"]
-modulate = Color( 1, 1, 1, 0.486275 )
+modulate = Color( 1, 1, 1, 0.658824 )
+position = Vector2( 10, 0 )
 z_index = 4096
 z_as_relative = false
 
@@ -347,6 +348,7 @@ margin_bottom = 83.0
 custom_fonts/font = SubResource( 3 )
 text = "GAME OVER 
 r to retry"
+align = 1
 script = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -377,6 +379,7 @@ margin_bottom = 83.0
 custom_fonts/font = SubResource( 3 )
 text = "You Win!!
 R to retry"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
