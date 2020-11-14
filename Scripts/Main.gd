@@ -44,7 +44,7 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	# _add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
 	
 	$Instructions.visible = true
