@@ -18,7 +18,7 @@ var direction = 1.0
 
 var max_health = 5
 var health = max_health
-var health_incr = 0.01
+var health_incr = 0.0
 
 var _keep_shooting = true
 
@@ -68,11 +68,11 @@ func _change_direction():
 		rng.randomize()
 		var old_direction = direction
 		direction = old_direction*(-1.0)
-		_timer_direction.start(rng.randfn(change_direction,3))
+		_timer_direction.start(rng.randfn(change_direction,3.5))
 
 func _get_damage(damage_received):
 	health -= damage_received
-	rotation_speed += 0.15
+	rotation_speed += 0.1
 	get_tree().get_current_scene().get_node('Player/Camera2D').shake(0.5, 150, 7.5)
 	emit_signal('damage_received')
 	if health <= 0:

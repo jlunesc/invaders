@@ -44,7 +44,7 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	#_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	# _add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
 	
 	$Instructions.visible = true
@@ -150,15 +150,20 @@ func _add_final_boss():
 	if $InvaderContainer.get_child_count() == 0:
 		for node in $BlockContainer.get_children():
 			node.queue_free()
-		_add_blokcs(1.33*d1, 3)
-		for node in $BlockContainer.get_children():
-			node.turning = 3.5
+
 		var final_boss = FinalBoss.instance()
 		$InvaderContainer.add_child(final_boss)
 		final_boss.connect("final_boss_dead", self, '_you_win')
 		final_boss.connect("damage_received", self, '_display_health_boss')
 		final_boss.position = get_node("Player").position
+		
+		# add new shield system with enhanced speed
+		_add_blokcs(1.33*d1, 3)
+		for node in $BlockContainer.get_children():
+			node.turning = 3.5
+		# improve conditions for the Player
 		$Player.turning += 1 
+		$Player.health = $Player.health_max 
 		
 		_add_healthCounter_finalBoss()
 
@@ -169,7 +174,6 @@ func _apply_bonification():
 		_bonification += 3.5
 
 func GameOver():
-	get_tree().get_nodes_in_group("labels")[0].visible = false
 	get_node("CanvasLayer/ParallaxBackground/UI").visible = false
 	get_node('GameOver').visible = true
 	for node in $InvaderContainer.get_children():

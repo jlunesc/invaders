@@ -17,8 +17,10 @@ func _on_Bullet_area_entered(area):
 	elif area.is_in_group("bullets_invader"):
 		area.queue_free()
 		_increase_score(0.5)
+		var current_health = get_tree().get_current_scene().get_node('Player').health
+		get_tree().get_current_scene().get_node('Player').health += 0.33*current_health
 		get_tree().get_current_scene().get_node('Player').health_max += 0.15
-		get_tree().get_current_scene().get_node('Player').health = get_tree().get_current_scene().get_node('Player').health_max
+
 	elif area.get_parent().is_in_group("big_bosses"):
 		area.get_parent()._get_damage(1.0)
 		_increase_score(2)

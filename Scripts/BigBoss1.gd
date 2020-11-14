@@ -55,7 +55,7 @@ func _can_shoot():
 func _shoot():
 	get_tree().get_current_scene().get_node('SoundFxs/shoot_invader').play()
 	var b = Bullet.instance()
-	b.damage_bullet = 1.5
+	b.damage_bullet = 1.0
 	b.modulate = Color('710957')
 	add_child(b)
 	b.transform = $Area2D/CollisionShape2D/Position2D.global_transform

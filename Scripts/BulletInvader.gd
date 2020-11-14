@@ -1,7 +1,7 @@
 extends Area2D
 
 var speed = 300
-var damage_bullet = 0.5
+var damage_bullet = 0.33
 
 func _ready():
 	add_to_group('bullets_invader')
