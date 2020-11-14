@@ -7,4 +7,4 @@ func _process(_delta):
 		modulate = Color('db1b1b')
 	var _amo = get_tree().get_current_scene().get_node('Player').amo
 	var _max_amo = get_tree().get_current_scene().get_node('Player').amo_max
-	text = 'Amo: ' + String(_amo) + '/' + String(_max_amo)
+	text = 'Ammo: ' + String(_amo) + '/' + String(_max_amo)

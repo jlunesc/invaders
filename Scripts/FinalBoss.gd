@@ -1,6 +1,7 @@
 extends Node2D
 
 signal final_boss_dead
+signal damage_received
 
 export (PackedScene) var Bullet
 
@@ -14,7 +15,10 @@ var time_now
 
 var _mean_distance = 300
 var direction = 1.0
-var health = 5
+
+var max_health = 5
+var health = max_health
+var health_incr = 0.01
 
 var _keep_shooting = true
 
@@ -70,5 +74,10 @@ func _get_damage(damage_received):
 	health -= damage_received
 	rotation_speed += 0.15
 	get_tree().get_current_scene().get_node('Player/Camera2D').shake(0.5, 150, 7.5)
+	emit_signal('damage_received')
 	if health <= 0:
 		emit_signal("final_boss_dead")
+
+func _recover_health(delta):
+	if health < max_health:
+		health += health_incr*delta

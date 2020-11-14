@@ -1,6 +1,7 @@
 extends Node2D
 
 var FinalBoss = preload("res://Scenes/FinalBoss.tscn")
+var FinalBossHealthCounter = preload("res://Scenes/HealthFinalBoss.tscn")
 var FBigBoss = preload("res://Scenes/BigBoss1.tscn")
 var Invader = preload("res://Scenes/InvaderArea.tscn")
 var Block = preload("res://Scenes/Blocks.tscn")
@@ -43,7 +44,7 @@ func _ready():
 	_timer_ditch.start(5)
 	_timer_ditch.autostart = true
 
-	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
+	#_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
 	_add_blokcs(d1, number_invaders)
 	
 	$Instructions.visible = true
@@ -55,7 +56,6 @@ func _process(_delta):
 		_invader_shoot()
 	if _timer_ditch.get_time_left() < 1:
 		_invader_ditch()
-
 	_play_sound_track()
 	_check_zoom()
 	_add_bigboss1()
@@ -156,9 +156,11 @@ func _add_final_boss():
 		var final_boss = FinalBoss.instance()
 		$InvaderContainer.add_child(final_boss)
 		final_boss.connect("final_boss_dead", self, '_you_win')
+		final_boss.connect("damage_received", self, '_display_health_boss')
 		final_boss.position = get_node("Player").position
-		
 		$Player.turning += 1 
+		
+		_add_healthCounter_finalBoss()
 
 func _apply_bonification():
 	if score > _bonification:
@@ -167,23 +169,37 @@ func _apply_bonification():
 		_bonification += 3.5
 
 func GameOver():
+	get_tree().get_nodes_in_group("labels")[0].visible = false
+	get_node("CanvasLayer/ParallaxBackground/UI").visible = false
 	get_node('GameOver').visible = true
 	for node in $InvaderContainer.get_children():
-		node.queue_free()
+		node.set_process(false)
 	for node in $BlockContainer.get_children():
 		node.queue_free()
 	$Player.set_process(false)
 	set_process(false)
 
 func _you_win():
-	get_node("YouWin").visible = true
+	get_node("CanvasLayer2/ParallaxBackground/YouWin").visible = true
 	for node in $BlockContainer.get_children():
 		node.queue_free()
 	$Player.set_process(false)
 	$InvaderContainer.get_child(0).set_process(false)
+	yield(get_tree().create_timer(5), "timeout")
+	$CanvasLayer2/ParallaxBackground/YouWin/Medal.visible = true
 
 func _check_zoom():
 	if get_tree().get_nodes_in_group("big_bosses").size() + get_tree().get_nodes_in_group("final_boss").size()> 0:
 		$Player/Camera2D.zoom = Vector2(1.0,1.0)
 	else: 
 		$Player/Camera2D.zoom = Vector2(0.9,0.9)
+
+func _add_healthCounter_finalBoss():
+	var healt_counter = FinalBossHealthCounter.instance()
+	healt_counter.scale = Vector2(1.5,1.5)
+	healt_counter.position = $Player.position + Vector2(-50, -200)
+	healt_counter.get_node("Control/VBoxContainer/Label").visible = false
+	add_child(healt_counter)
+
+func _display_health_boss():
+	get_tree().get_nodes_in_group("labels")[0].visible = true
