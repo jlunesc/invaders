@@ -61,7 +61,7 @@ func _shoot():
 	b.transform = $Area2D/CollisionShape2D/Position2D.global_transform
 
 func _get_damage(damage_received):
-	rotation_speed += 0.20
+	rotation_speed += 0.30
 	modulate = Color('ff0e02')
 	health -= damage_received
 	if health <= 0:

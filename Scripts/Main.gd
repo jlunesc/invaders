@@ -36,12 +36,12 @@ func _ready():
 	# timer for the first shoot
 	_timer_shoot = Timer.new()
 	add_child(_timer_shoot)
-	_timer_shoot.start(6)
+	_timer_shoot.start(5)
 	_timer_shoot.autostart = true
 
 	_timer_ditch = Timer.new()
 	add_child(_timer_ditch)
-	_timer_ditch.start(5)
+	_timer_ditch.start(6)
 	_timer_ditch.autostart = true
 
 	_add_invaders(d, number_invaders, number_rows) 	# placement of the invaders
@@ -78,12 +78,15 @@ func _invader_shoot():
 			$SoundFxs/shoot_invader.play()
 			break
 	time_now =  (OS.get_unix_time()-_reference_time) / 60.0
-	var b = pow(10, -0.5)
+	var b = pow(10, -0.75)
 	var factor = 1.0 / (1.0 + pow(time_now/b,3))
 	if factor > 0.6:
-		_normality(factor)
-	elif factor < 4.0:
-		_set_armagedon()
+		# normality
+		_timer_shoot.start(rng.randf_range(3, 8)*factor)
+	else:
+		# armagedon
+		yield(get_tree().create_timer(0.15), "timeout")
+		_reference_time = OS.get_unix_time()
 
 func _invader_ditch():
 	rng.randomize()
@@ -113,13 +116,6 @@ func _add_blokcs(_d1, number_blocks):
 		block.rotation_degrees += 20+i*(360 / number_blocks)
 		block.get_node("Node2D").position = Vector2(_d1, 0)
 
-func _normality(factor):
-	_timer_shoot.start(rng.randf_range(5, 10)*factor)
-
-func _set_armagedon():
-	yield(get_tree().create_timer(0.15), "timeout")
-	_reference_time = OS.get_unix_time()
-
 func _make_explosion(position):
 	var new_explosion = $explosion.duplicate()
 	add_child(new_explosion)
@@ -144,7 +140,7 @@ func _add_bigboss1():
 		
 		if _invaders_to_kill > 1:
 			_invaders_to_kill -= 1
-			_n_invaders_killed = 0
+		_n_invaders_killed = 0
 
 func _add_final_boss():
 	if $InvaderContainer.get_child_count() == 0:
@@ -189,7 +185,7 @@ func _you_win():
 		node.queue_free()
 	$Player.set_process(false)
 	$InvaderContainer.get_child(0).set_process(false)
-	yield(get_tree().create_timer(5), "timeout")
+	yield(get_tree().create_timer(4), "timeout")
 	$CanvasLayer2/ParallaxBackground/YouWin/Medal.visible = true
 
 func _check_zoom():
